@@ -29,7 +29,7 @@ def createdashboard(db_name):
     }
 
     response = requests.get(
-        settings.jira_url + "/rest/api/3/dashboard/search",
+        authdata.jira_url + "/rest/api/3/dashboard/search",
         params=params,
         headers=headers,
         auth=auth
