@@ -4,8 +4,8 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 
-import authdata
-import settings
+import settings.authdata as authdata
+import settings.dashboard_settings as settings
 
 
 def createdashboard(db_name):

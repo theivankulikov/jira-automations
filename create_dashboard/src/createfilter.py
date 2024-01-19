@@ -4,8 +4,8 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 
-import authdata
-import settings
+import settings.authdata as authdata
+import settings.dashboard_settings as settings
 
 
 def createfilter(jql_name, jql_body):
@@ -28,7 +28,7 @@ def createfilter(jql_name, jql_body):
     }
 
     response = requests.get(
-        settings.jira_url + "/rest/api/3/filter/search",
+        authdata.jira_url + "/rest/api/3/filter/search",
         params=params,
         headers=headers,
         auth=auth
@@ -72,7 +72,7 @@ def createfilter(jql_name, jql_body):
 
     response = requests.request(
         "POST",
-        settings.jira_url + "/rest/api/3/filter",
+        authdata.jira_url + "/rest/api/3/filter",
         data=payload,
         headers=headers,
         auth=auth

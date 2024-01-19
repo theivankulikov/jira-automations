@@ -1,3 +1,5 @@
+jira_url = "https://yourdomain.atlassian.net"
+
 email = "your@email.com"
 
 # generate api_token here: https://id.atlassian.com/manage-profile/security/api-tokens

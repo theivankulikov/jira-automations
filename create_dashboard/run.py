@@ -1,13 +1,15 @@
-from createfilter import createfilter
-import jqls
+from src.createfilter import createfilter
+from src.createdashboard import createdashboard
+
+import settings.dashboard_settings as dashboard_settings
 
 left_filters = []
 right_filters = []
 
-for jql in jqls.left_side:
+for jql in dashboard_settings.jql_left_side:
     left_filters.append(createfilter(jql[0], jql[1]))
 
-for jql in jqls.right_side:
+for jql in dashboard_settings.jql_right_side:
     right_filters.append(createfilter(jql[0], jql[1]))
 
 
