@@ -1,2 +1,5 @@
 *__pycache__*
-create_dashboard/settings/
+
+auth_data.py
+
+create_dashboard/settings.py
