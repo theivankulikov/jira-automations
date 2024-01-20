@@ -4,15 +4,12 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 
-import settings.authdata as authdata
-import settings.dashboard_settings as settings
 
-
-def createfilter(jql_name, jql_body):
+def create_filter(jira_url, login, token, jql_name, jql_body):
     created_filter = "Filter is not created"
 
 # Authentification
-    auth = HTTPBasicAuth(authdata.email, authdata.api_token)
+    auth = HTTPBasicAuth(login, token)
 
 
 # Searching filter with name jql_name
@@ -24,11 +21,11 @@ def createfilter(jql_name, jql_body):
     }
 
     params = {
-        'filterName' : '"' + settings.dashboard_name + ' ' + jql_name + '"'
+        'filterName' : '"' + jql_name + '"'
     }
 
     response = requests.get(
-        authdata.jira_url + "/rest/api/3/filter/search",
+        jira_url + "/rest/api/3/filter/search",
         params=params,
         headers=headers,
         auth=auth
@@ -64,15 +61,15 @@ def createfilter(jql_name, jql_body):
     }
 
     payload = json.dumps( {
-        "description": "For " + settings.dashboard_name + " dashboard",
+        "description": "Created by Jira Automations",
         "jql": jql_body,
-        "name": settings.dashboard_name + " " + jql_name,
+        "name": jql_name,
         "sharePermissions": [{"type": "authenticated"}]
     } )
 
     response = requests.request(
         "POST",
-        authdata.jira_url + "/rest/api/3/filter",
+        jira_url + "/rest/api/3/filter",
         data=payload,
         headers=headers,
         auth=auth

@@ -1,9 +1,19 @@
-#Scripts to automate routine manager tasks in Jira
-Before you start using sctripts:
-- Rename auth_data.template.py to auth_data.py and edit it. Add credentials to Jira;
+# PROJECT IS UNDER DEVELOPMENT
 
-##Create dashboard
-The script creates a Jira dashboard using a predefined list of JQLs.
-- Rename create_dashboard/settings.template.py to create_dashboard/settings.py;
-- Edit settings.py. Provide a name for a dashboard and edit the list of JQLs;
-- Execute run.py.
+# Jira Automations
+
+Automate routine tasks in Jira!
+
+## Examples of usage Jira Automations as a desktop tool
+
+### Creation preconfigured Jira dashboard
+
+- Run `pip install jira-automations`;
+- Rename `auth_data.template.py` into `auth_data.py` and write Jira authentication data to the file;
+- Rename `create_preconfigured_dashboard_configuration.template.py` into `create_preconfigured_dashboard_configuration.py` and write dashboard configuration to the file;
+- Run [create_preconfigured_dashboard.py](bin/create_preconfigured_dashboard.py)
+
+## Examples of usage Jira Automations as a package
+
+- 
+

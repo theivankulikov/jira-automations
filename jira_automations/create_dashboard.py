@@ -4,11 +4,8 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 
-import settings.authdata as authdata
-import settings.dashboard_settings as settings
 
-
-def createdashboard(db_name):
+def create_dashboard(db_name):
     created_dashboard = "Dasboard is not created"
 
 
