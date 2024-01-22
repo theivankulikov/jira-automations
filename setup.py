@@ -1,9 +1,9 @@
 from setuptools import setup
 
-setup(name='jira_automations',
+setup(name='jira-automations',
       version='0.1',
       description='Automate routine tasks in Jira',
-      url='https://github.com/theivankulikov/jira_automations',
+      url='https://github.com/theivankulikov/jira-automations',
       author='Ivan Kulikov',
       author_email='ivankulich@gmail.com',
       license='MIT',

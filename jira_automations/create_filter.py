@@ -6,79 +6,62 @@ import json
 
 
 def create_filter(jira_url, login, token, jql_name, jql_body):
-    created_filter = "Filter is not created"
-
-# Authentification
+    # Authentification
     auth = HTTPBasicAuth(login, token)
 
-
-# Searching filter with name jql_name
-
+    # Searching filter
     print("Searching filter.")
 
-    headers = {
-        "Accept": "application/json",
-    }
+    headers = {"Accept": "application/json"}
 
-    params = {
-        'filterName' : '"' + jql_name + '"'
-    }
+    params = {"filterName": '"' + jql_name + '"'}
 
     response = requests.get(
         jira_url + "/rest/api/3/filter/search",
         params=params,
         headers=headers,
-        auth=auth
+        auth=auth,
     )
 
-    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
-    
-
-
-# Removing filter with name jql_name
-    print("Removing filter.")
-    if len(json.loads(response.text)['values']) >0:
-        filter_for_deletion = json.loads(response.text)['values'][0]['self']
-    
-        response = requests.request(
-            "DELETE",
-            filter_for_deletion,
-            auth=auth
+    print(
+        json.dumps(
+            json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")
         )
-      
+    )
+
+    if len(json.loads(response.text)["values"]) > 0:
+        # Updating filter
+        print("Updating filter.")
+
+        filter_for_deletion = json.loads(response.text)["values"][0]["self"]
+        response = requests.request("DELETE", filter_for_deletion, auth=auth)
         print("Filter deletion status: " + str(response.status_code))
     else:
-        print("Filter not found. Nothing to delete.")
+        # Creating filter
+        print("Creating filter.")
 
+        headers = {"Accept": "application/json", "Content-Type": "application/json"}
 
-# Creating filter with name jql_name
-    
-    print("Creating filter.")
+        payload = json.dumps(
+            {
+                "description": "Created by Jira Automations",
+                "jql": jql_body,
+                "name": jql_name,
+                "sharePermissions": [{"type": "authenticated"}],
+            }
+        )
 
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-    }
-
-    payload = json.dumps( {
-        "description": "Created by Jira Automations",
-        "jql": jql_body,
-        "name": jql_name,
-        "sharePermissions": [{"type": "authenticated"}]
-    } )
-
-    response = requests.request(
-        "POST",
-        jira_url + "/rest/api/3/filter",
-        data=payload,
-        headers=headers,
-        auth=auth
-    )
-    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
-    
-    if len(json.loads(response.text)['self']) >0:
-        created_filter = json.loads(response.text)['self']
-        print("Filter is created.")
-
+        response = requests.request(
+            "POST",
+            jira_url + "/rest/api/3/filter",
+            data=payload,
+            headers=headers,
+            auth=auth,
+        )
+        print(
+            json.dumps(
+                json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")
+            )
+        )
 
     return created_filter

@@ -15,5 +15,8 @@ Automate routine tasks in Jira!
 
 ## Examples of usage Jira Automations as a package
 
-- 
+## TODO (ideas)
 
+- Convert functions create_smth into methods of class Jira (and move authorisation into constructor);
+- Integrate some logger instead of using print;
+- Convert settings into yaml files;
